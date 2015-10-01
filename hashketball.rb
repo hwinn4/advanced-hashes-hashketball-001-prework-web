@@ -182,6 +182,12 @@ def team_colors(team_name)
   end.compact.flatten
 end
 
+# return an array of team names
+def team_names
+  game_hash.collect do |team, team_data|
+    team_data[:team_name].first
+  end
+end
 
 
 
