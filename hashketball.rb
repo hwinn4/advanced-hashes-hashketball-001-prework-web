@@ -177,7 +177,6 @@ end
 # finds a team's colors, given a team name
 def team_colors(team_name)
   game_hash.collect do |team, team_data|
-    #binding.pry
     team_data[:colors] if team_data.values.flatten.include?(team_name)
   end.compact.flatten
 end
@@ -188,6 +187,35 @@ def team_names
     team_data[:team_name].first
   end
 end
+
+# Method takes argument of team name and returns an array of jersey numbers.
+def player_numbers(team_name)
+  # Finds if team is home or away
+  team_location = game_hash.collect do |team, team_data|
+    team if team_data.values.flatten.include?(team_name)
+  end.compact.first
+
+  # Collects jersey numbers for given team
+  game_hash[team_location][:players].collect do |player_stats|
+    player_stats.values[0][:number] 
+    #Calls player_stats, grabs the value, which is a hash, and calls it as a hash with [0]
+  end
+end
+
+# Takes in a players name and returns a hash of that players hash. Hash should NOT include players name
+def player_stats(name)
+  team_location = find_player_team(name)
+
+  player_stats = game_hash[team_location][:players].collect do|item| 
+    item.values.first if item.keys.first == name
+  end.compact.first
+
+  player_stats.delete_if {|player_attribute, stat_value| player_attribute == :player_name}
+
+end
+
+
+
 
 
 
