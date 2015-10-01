@@ -147,19 +147,27 @@ def game_hash
   }
 end
 
-
-def num_points_scored(name)
-  # find the player's team
-  player_team = game_hash.collect do |team, team_data|
+def find_player_team(name)
+  game_hash.collect do |team, team_data|
     team if team_data[:players].map(&:keys).flatten.include?(name)
-  end.compact.first
-
-  # find the player's points
-  game_hash[player_team][:players].collect do |player_stats|
-    player_stats[name][:points] if player_stats.keys.first == name
   end.compact.first
 end
 
+def find_player_stat(name, team, stat)
+  game_hash[team][:players].collect do |player_stats|
+    player_stats[name][stat] if player_stats.keys.first == name
+  end.compact.first
+end
+
+def num_points_scored(name)
+  player_team = find_player_team(name)
+  find_player_stat(name, player_team, :points)
+end
+
+def shoe_size(name)
+  player_team = find_player_team(name)
+  find_player_stat(name, player_team, :shoe)
+end
 
 
 
