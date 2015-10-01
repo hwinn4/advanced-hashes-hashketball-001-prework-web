@@ -214,6 +214,36 @@ def player_stats(name)
 
 end
 
+# returns number of rebounds associated with player with largest shoe size
+def big_shoe_rebounds
+# returns an array of players and their data
+
+  player_array = game_hash.each_with_object([]) do | (team_location, team_data), player_array|
+    #binding.pry
+    player_array.concat(team_data[:players])
+  end.flatten
+
+  # find number of rebounds
+  largest_shoe_size = 0
+  # associated_rebounds = 0 
+  # player_array.each do | player_data|
+  #   if player_data[:shoe] > largest_shoe_size
+  #     largest_shoe_size = player_data[:shoe]
+      
+  #     associated_rebounds = player_data[:rebounds]
+  #     puts "#{largest_shoe_size} : #{associated_rebounds}" 
+  #   end
+  # end
+  
+  player_array.each_with_object([]) do | player_data, associated_rebounds|
+    #binding.pry
+    if player_data.values.first[:shoe] > largest_shoe_size
+      largest_shoe_size = player_data.values.first[:shoe]
+      associated_rebounds[0] = player_data.values.first[:rebounds]
+    end
+  end.first
+end
+
 
 
 
