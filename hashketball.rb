@@ -169,6 +169,13 @@ def shoe_size(name)
   find_player_stat(name, player_team, :shoe)
 end
 
+def team_colors(team_name)
+  game_hash.collect do |team, team_data|
+    #binding.pry
+    team_data[:colors] if team_data.values.flatten.include?(team_name)
+  end.compact.flatten
+end
+
 
 
 
