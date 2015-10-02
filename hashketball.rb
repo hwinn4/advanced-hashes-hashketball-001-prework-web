@@ -174,5 +174,12 @@ def player_numbers(team_name)
   end
 end
 
+def big_shoe_rebounds
+  # Find the player with the biggest shoe size
+  # Find his number of
+  player_max = players.max_by {|player| player[:shoe]}
+  binding.pry
+  player_max[:rebounds]
+end
 
 
